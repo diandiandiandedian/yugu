@@ -3,6 +3,7 @@
 
 import {useEffect, useState} from "react";
 import {UniPassPopupSDK} from "@unipasswallet/popup-sdk";
+import Image from "next/image";
 
 export default function Login() {
 
@@ -68,12 +69,17 @@ export default function Login() {
 
     return (
         <>
-            <div className="h-screen w-[100%]">
-                <button  onClick={aaaaa} className={`text-xl hover:text-white duration-150  text-[#444] px-[1rem] py-[0.25rem] rounded-[0.25rem] text-[1rem]`}>
-                    Login
+            <div className="h-screen w-[100%] flex flex-col items-center justify-center">
+                <Image src="/subtitle.svg" width="300" height="300" alt="sub" ></Image>
+                <Image src="/title.svg" width="300" height="300" alt="title" className="mt-[2rem]"></Image>
+                <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON:</div>
+                <button  onClick={aaaaa} className="flex items-center border-[2px] rounded-[0.7rem] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']">
+                    <Image src="/google.png" width="30" height="30" alt="google" className="mr-[1.5rem]"></Image>
+                    Continue with Google
                 </button>
-                <button  onClick={loginOut} className={`text-xl hover:text-white duration-150  text-[#444] px-[1rem] py-[0.25rem] rounded-[0.25rem] text-[1rem]`}>
-                    Login out
+                <button  onClick={loginOut} className="text-[#B5B5B5] mt-[2rem] font-['Roboto-Regular'] flex items-center">
+                    I don’t want free money, just let me order
+                    <Image src="/right.svg" width="30" height="30" alt="right" className="ml-[0.5rem]"></Image>
                 </button>
                 <div>{address}</div>
 

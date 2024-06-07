@@ -16,6 +16,11 @@
   }
 }
 
+@font-face {
+  font-family: "Roboto-Regular";
+  src: url("/Roboto-Regular.ttf");
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(

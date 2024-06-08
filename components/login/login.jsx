@@ -34,12 +34,12 @@ export default function Login() {
                         // ElMessage.success("a user register");
                     }
                 },
-                connectType: "both",
+                connectType: "google",
             });
             const { address, email } = account;
             setAddress(address)
             console.log("account", address, email);
-            window.open('https://baidu.com','_blank')
+            window.open('http://testh5.yugu.co.nz','_self')
         } catch (err) {
             console.log("connect err", err);
         }

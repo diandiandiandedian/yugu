@@ -46,21 +46,7 @@ export default function Login() {
     }
 
     async function loginOut() {
-        const upWallet = new UniPassPopupSDK({
-            env: "test",
-            // for polygon mumbai
-            chainType: "polygon",
-            // choose localStorage if you want to cache user account permanent
-            storageType: "sessionStorage",
-            appSettings: {
-                theme: 'light',
-                appName: "UniPass Wallet",
-                appIcon: "",
-            },
-        });
-        await upWallet.logout(true);
-
-
+        window.open('http://testh5.yugu.co.nz','_self')
     }
 
     useEffect(() => {
@@ -69,7 +55,7 @@ export default function Login() {
 
     return (
         <>
-            <div className="h-screen w-[100%] flex flex-col items-center justify-center">
+            <div className="h-screen w-[100%] flex flex-col items-center justify-center bg-[url('/bg.svg')] bg-cover	">
                 <Image src="/subtitle.svg" width="300" height="300" alt="sub" ></Image>
                 <Image src="/title.svg" width="300" height="300" alt="title" className="mt-[2rem]"></Image>
                 <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON:</div>

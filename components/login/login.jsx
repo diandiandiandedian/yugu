@@ -63,8 +63,8 @@ export default function Login() {
                     <Image src="/google.png" width="30" height="30" alt="google" className="mr-[1.5rem]"></Image>
                     Continue with Google
                 </button>
-                <button  onClick={loginOut} className="text-[#B5B5B5] mt-[2rem] font-['Roboto-Regular'] flex items-center">
-                    I don’t want free money, just let me order
+                <button  onClick={loginOut} className="text-[#B5B5B5] mt-[2rem] font-['Roboto-Regular'] flex items-center 	">
+                    <span className='underline decoration-1 decoration-[#B5B5B5]'>I don’t want free money, just let me order</span>
                     <Image src="/right.svg" width="30" height="30" alt="right" className="ml-[0.5rem]"></Image>
                 </button>
                 <div>{address}</div>

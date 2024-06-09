@@ -59,7 +59,7 @@ export default function Login() {
                 <Image src="/subtitle.svg" width="300" height="300" alt="sub" ></Image>
                 <Image src="/title.svg" width="300" height="300" alt="title" className="mt-[2rem]"></Image>
                 <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON:</div>
-                <button  onClick={aaaaa} className="flex items-center border-[2px] rounded-[0.7rem] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']">
+                <button  onClick={aaaaa} className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']">
                     <Image src="/google.png" width="30" height="30" alt="google" className="mr-[1.5rem]"></Image>
                     Continue with Google
                 </button>

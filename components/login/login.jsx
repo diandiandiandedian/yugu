@@ -106,7 +106,7 @@ export default function Login() {
 
     return (
         <>
-            <div className="h-screen w-[100%] flex flex-col items-center justify-center bg-[url('/bg.svg')] bg-cover	">
+            <div className="h-screen w-[100%] flex flex-col items-center justify-center bg-[url('/bg.svg')] bg-cover">
                 <Image src="/subtitle.svg" width="300" height="300" alt="sub"></Image>
                 <Image src="/title.svg" width="300" height="300" alt="title" className="mt-[2rem]"></Image>
                 <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON:</div>

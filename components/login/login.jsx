@@ -116,7 +116,7 @@ export default function Login() {
     //     console.log('谷歌登录结果',res)
     // }
 
-    window.loginProcess = (response) => {
+    globalThis.loginProcess = (response) => {
         // decodeJwtResponse() is a custom function defined by you
         // to decode the credential response.
         console.log('response', response)

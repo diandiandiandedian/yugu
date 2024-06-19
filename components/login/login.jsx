@@ -111,6 +111,11 @@ export default function Login() {
         window.open('http://testh5.yugu.co.nz', '_self')
     }
 
+    function loginProcess(res) {
+
+        console.log('谷歌登录结果',res)
+    }
+
 
     return (
         <>

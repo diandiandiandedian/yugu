@@ -111,11 +111,33 @@ export default function Login() {
         window.open('http://testh5.yugu.co.nz', '_self')
     }
 
-    function loginProcess(res) {
+    // function window.loginProcess(res) {
+    //
+    //     console.log('谷歌登录结果',res)
+    // }
 
-        console.log('谷歌登录结果',res)
+    window.loginProcess = (response) => {
+        // decodeJwtResponse() is a custom function defined by you
+        // to decode the credential response.
+        console.log('response', response)
+        const responsePayload = decodeJwtResponse(response.credential);
+
+        console.log("ID: " + responsePayload.sub);
+        console.log('Full Name: ' + responsePayload.name);
+        console.log('Given Name: ' + responsePayload.given_name);
+        console.log('Family Name: ' + responsePayload.family_name);
+        console.log("Image URL: " + responsePayload.picture);
+        console.log("Email: " + responsePayload.email);
     }
 
+    function decodeJwtResponse(token) {
+        let base64Url = token.split('.')[1]
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload)
+    }
 
     return (
         <>

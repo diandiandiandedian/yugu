@@ -109,7 +109,7 @@ export default function Login() {
     // };
 
     function jump() {
-        window.open('http://testh5.yugu.co.nz', '_self')
+        window.open('http://testh5.yugu.co.nz/member/orderFood?id=164&name=%20MS%20Dessert%20Cafe', '_self')
     }
 
     // function window.loginProcess(res) {

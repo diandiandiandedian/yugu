@@ -20,6 +20,14 @@ export default function Login() {
     const alertRef = useRef(null);
 
     useEffect(() => {
+
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = 'https://accounts.google.com/gsi/client';
+        document.head.appendChild(script);
+
+
         // var privateKey = ethers.utils.randomBytes(32);
         // var wallet = new ethers.Wallet(privateKey);
         // console.log("账号地址: " + wallet.address,privateKey);
@@ -107,9 +115,32 @@ export default function Login() {
     return (
         <>
             <div className="h-screen w-[100%] flex flex-col items-center justify-center bg-[url('/bg.svg')] bg-cover">
+
                 <Image src="/subtitle.svg" width="300" height="300" alt="sub"></Image>
                 <Image src="/title.svg" width="300" height="300" alt="title" className="mt-[2rem]"></Image>
                 <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON:</div>
+
+                <div>
+                <div id="g_id_onload"
+                     data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"
+                     data-context="signin"
+                     data-ux_mode="popup"
+                     data-callback="loginProcess"
+                     data-auto_prompt="false">
+                </div>
+
+                <div className="g_id_signin"
+                     data-type="standard"
+                     data-shape="rectangular"
+                     data-theme="filled_blue"
+                     data-text="signin_with"
+                     data-size="large"
+                     data-logo_alignment="left">
+                </div>
+                </div>
+
+
+
                 <input type="text" className="border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-3 py-2 mb-3" placeholder="Email" onChange={handleEmailChange} value={email}/>
 
                 <button onClick={initWallet} className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']">

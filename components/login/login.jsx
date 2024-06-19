@@ -1,7 +1,7 @@
 "use client";
 
 
-import {useEffect, useState,useRef} from "react";
+import {useEffect, useState, useRef} from "react";
 import {UniPassPopupSDK} from "@unipasswallet/popup-sdk";
 import Image from "next/image";
 import {ethers} from "ethers";
@@ -17,7 +17,9 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [wallet, setWallet] = useState({});
     const [stakeLoading, setStakeLoading] = useState(false);
+    const [haveLogin, setHaveLogin] = useState(false);
     const alertRef = useRef(null);
+
 
     useEffect(() => {
 
@@ -35,17 +37,16 @@ export default function Login() {
         // console.log(keyNumber);
 
         // initWallet()
-        fetchUsers()
+        // fetchUsers()
 
     }, []);
 
-    const fetchUsers = async () => {
-        const res = await fetch('/api/users');
-        const data = await res.json();
-        // 使用 data
-        console.log('fetchUsers', data)
-
-    };
+    // const fetchUsers = async () => {
+    //     const res = await fetch('/api/users');
+    //     const data = await res.json();
+    //     // 使用 data
+    //     console.log('fetchUsers', data)
+    // };
 
     const createUser = async (userData) => {
         const res = await fetch('/api/users', {
@@ -60,13 +61,13 @@ export default function Login() {
     };
 
 
-    async function initWallet() {
+    async function initWallet(_email) {
         // 创建钱包
         const wallet1 = ethers.Wallet.createRandom();
         console.log('aaa', wallet1.address, wallet1.privateKey)
         setWallet(wallet1)
         await createUser({
-            email: email,
+            email: _email,
             password: "bbbb",
             address: wallet1.address,
             create_time: new Date().getTime()
@@ -95,19 +96,19 @@ export default function Login() {
             console.log('balance', balanceWETH2)
             setStakeLoading(false)
             alertRef.current.showSuccessAlert("Mint Success");
-        }catch (e) {
+            jump()
+        } catch (e) {
             console.log(e)
             setStakeLoading(false)
             alertRef.current.showErrorAlert("Mint Error");
         }
     }
 
-    const handleEmailChange = async (e) => {
-        setEmail(e.target.value)
+    // const handleEmailChange = async (e) => {
+    //     setEmail(e.target.value)
+    // };
 
-    };
-
-    async function jump() {
+    function jump() {
         window.open('http://testh5.yugu.co.nz', '_self')
     }
 
@@ -116,7 +117,7 @@ export default function Login() {
     //     console.log('谷歌登录结果',res)
     // }
 
-    globalThis.loginProcess = (response) => {
+    globalThis.loginProcess = async (response) => {
         // decodeJwtResponse() is a custom function defined by you
         // to decode the credential response.
         console.log('response', response)
@@ -128,12 +129,15 @@ export default function Login() {
         console.log('Family Name: ' + responsePayload.family_name);
         console.log("Image URL: " + responsePayload.picture);
         console.log("Email: " + responsePayload.email);
+        setEmail(responsePayload.email)
+        await initWallet(responsePayload.email)
+        setHaveLogin(true)
     }
 
     function decodeJwtResponse(token) {
         let base64Url = token.split('.')[1]
         let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
         return JSON.parse(jsonPayload)
@@ -147,40 +151,40 @@ export default function Login() {
                 <Image src="/title.svg" width="300" height="300" alt="title" className="mt-[2rem]"></Image>
                 <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON:</div>
 
-                <div>
-                <div id="g_id_onload"
-                     data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"
-                     data-context="signin"
-                     data-ux_mode="popup"
-                     data-callback="loginProcess"
-                     data-auto_prompt="false">
-                </div>
+                {!haveLogin && <div className="overflow-hidden">
+                    <div id="g_id_onload"
+                         data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"
+                         data-context="signin"
+                         data-ux_mode="popup"
+                         data-callback="loginProcess"
+                         data-auto_prompt="false"
+                         className="overflow-hidden">
+                    </div>
 
-                <div className="g_id_signin"
-                     data-type="standard"
-                     data-shape="rectangular"
-                     data-theme="filled_blue"
-                     data-text="signin_with"
-                     data-size="large"
-                     data-logo_alignment="left">
-                </div>
-                </div>
+                    <div className="g_id_signin "
+                         data-type="standard"
+                         data-shape="rectangular"
+                         data-theme="filled_blue"
+                         data-text="signin_with"
+                         data-size="large"
+                         data-logo_alignment="left">
+                    </div>
+                </div>}
 
 
+                {/*<input type="text" className="border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-3 py-2 mb-3" placeholder="Email" onChange={handleEmailChange} value={email}/>*/}
 
-                <input type="text" className="border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-3 py-2 mb-3" placeholder="Email" onChange={handleEmailChange} value={email}/>
-
-                <button onClick={initWallet} className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']">
-                    <Image src="/google.png" width="30" height="30" alt="google" className="mr-[1.5rem]"></Image>
-                    Continue with Google
-                </button>
-                <div className='break-all'>
-                    your address: {wallet.address} <br/>
-                    your private key: {wallet.privateKey}
-                </div>
-                <button onClick={mintNft} className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']">
-                    {stakeLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint'}
-                </button>
+                {/*<button onClick={initWallet} className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']">*/}
+                {/*    <Image src="/google.png" width="30" height="30" alt="google" className="mr-[1.5rem]"></Image>*/}
+                {/*    Continue with Google*/}
+                {/*</button>*/}
+                {/*<div className='break-all'>*/}
+                {/*    your address: {wallet.address} <br/>*/}
+                {/*    your private key: {wallet.privateKey}*/}
+                {/*</div>*/}
+                {haveLogin && <button onClick={mintNft} className="flex items-center border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-[1.1rem] py-[0.6rem] font-['Roboto-Regular']">
+                    {stakeLoading ? <span className="loading loading-spinner loading-sm"></span> : 'Mint DISHSOON NFT'}
+                </button>}
 
                 <button onClick={jump} className="text-[#B5B5B5] mt-[2rem] font-['Roboto-Regular'] flex items-center 	">
                     <span className='underline decoration-1 decoration-[#B5B5B5]'>I don’t want free money, just let me order</span>

@@ -209,25 +209,26 @@ export default function Login() {
                 <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON:</div>
                 {/*data-login_uri="https://yugu.vercel.app"*/}
 
-                {!haveLogin && (stakeLoading ? <span className="loading loading-spinner loading-sm"></span>:<div>
-                    <div id="g_id_onload"
-                         data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"
-                         data-context="signin"
-                         data-ux_mode="redirect"
-                         data-login_uri="https://yugu.vercel.app/api/logincallback"
-                         data-callback="loginProcess"
-                         data-auto_prompt="false">
-                    </div>
+                {!haveLogin && (stakeLoading ? <span className="loading loading-spinner loading-sm"></span> :
+                    <div className="bg-[#1a73e8] rounded-[4px]">
+                        <div id="g_id_onload"
+                             data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"
+                             data-context="signin"
+                             data-ux_mode="redirect"
+                             data-login_uri="https://yugu.vercel.app/api/logincallback"
+                             data-callback="loginProcess"
+                             data-auto_prompt="false" className="bg-[#1a73e8] rounded-[4px]">
+                        </div>
 
-                    <div className="g_id_signin"
-                         data-type="standard"
-                         data-shape="pill"
-                         data-theme="filled_blue"
-                         data-text="signin_with"
-                         data-size="large"
-                         data-logo_alignment="left">
-                    </div>
-                </div>)}
+                        <div className="g_id_signin bg-[#1a73e8] rounded-[4px]"
+                             data-type="standard"
+                             data-shape="rectangular"
+                             data-theme="filled_blue"
+                             data-text="signin_with"
+                             data-size="large"
+                             data-logo_alignment="left">
+                        </div>
+                    </div>)}
                 {/*{!haveLogin && <div className="overflow-hidden">*/}
                 {/*    <div id="g_id_onload"*/}
                 {/*         data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"*/}

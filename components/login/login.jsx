@@ -100,9 +100,9 @@ export default function Login() {
         } catch (e) {
             console.log(e)
             setStakeLoading(false)
-            if (e.indexOf('insufficient funds')!==-1){
+            if (e.indexOf('insufficient funds') !== -1) {
                 alertRef.current.showErrorAlert("Mint Error: Insufficient Funds");
-            }else {
+            } else {
                 alertRef.current.showErrorAlert("Mint Error");
             }
         }
@@ -172,42 +172,44 @@ export default function Login() {
                 <Image src="/title.svg" width="300" height="300" alt="title" className="mt-[2rem]"></Image>
                 <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON:</div>
 
-                {!haveLogin && <div className="overflow-hidden">
+                {/*{!haveLogin && <div className="overflow-hidden">*/}
+                {/*    <div id="g_id_onload"*/}
+                {/*         data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"*/}
+                {/*         data-context="signin"*/}
+                {/*         data-ux_mode="popup"*/}
+                {/*         data-callback="loginProcess"*/}
+                {/*         data-auto_prompt="false"*/}
+                {/*         className="overflow-hidden">*/}
+                {/*    </div>*/}
+
+                {/*    <div className="g_id_signin "*/}
+                {/*         data-type="standard"*/}
+                {/*         data-shape="rectangular"*/}
+                {/*         data-theme="filled_blue"*/}
+                {/*         data-text="signin_with"*/}
+                {/*         data-size="large"*/}
+                {/*         data-logo_alignment="left">*/}
+                {/*    </div>*/}
+                {/*</div>}*/}
+                <br/>
+                <div>
                     <div id="g_id_onload"
                          data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"
                          data-context="signin"
-                         data-ux_mode="popup"
-                         data-callback="loginProcess"
-                         data-auto_prompt="false"
-                         className="overflow-hidden">
+                         data-ux_mode="redirect"
+                         data-login_uri="https://yugu.vercel.app"
+                         data-callback="aaaa"
+                         data-auto_prompt="false">
                     </div>
 
-                    <div className="g_id_signin "
+                    <div className="g_id_signin"
                          data-type="standard"
-                         data-shape="rectangular"
+                         data-shape="pill"
                          data-theme="filled_blue"
                          data-text="signin_with"
                          data-size="large"
                          data-logo_alignment="left">
                     </div>
-                </div>}
-<br/>
-                <div id="g_id_onload"
-                     data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"
-                     data-context="signin"
-                     data-ux_mode="redirect"
-                     data-login_uri="https://yugu.vercel.app"
-                     data-callback="aaaa"
-                     data-auto_prompt="false">
-                </div>
-
-                <div className="g_id_signin"
-                     data-type="standard"
-                     data-shape="rectangular"
-                     data-theme="outline"
-                     data-text="signin_with"
-                     data-size="large"
-                     data-logo_alignment="left">
                 </div>
 
                 {/*<input type="text" className="border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-3 py-2 mb-3" placeholder="Email" onChange={handleEmailChange} value={email}/>*/}

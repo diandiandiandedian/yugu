@@ -11,7 +11,7 @@ import {UniPassTheme} from "@unipasswallet/popup-types";
 import erc721abi from "../../contract/erc721abi.json";
 // import {useAccount, useContractRead, useContractWrite, useNetwork, useWaitForTransaction} from "wagmi";
 import AlertComponent from "../common/AlertComponent";
-import {useSearchParams} from "next/navigation";
+import {useParams, useSearchParams} from "next/navigation";
 
 export default function Login() {
 
@@ -20,31 +20,40 @@ export default function Login() {
     const [stakeLoading, setStakeLoading] = useState(false);
     const [haveLogin, setHaveLogin] = useState(false);
     const alertRef = useRef(null);
-    const pathname = useSearchParams()
+    // const pathname = useSearchParams()
 
     // const { id } = router.query;
     // console.log('id',id)
     // const [loaded, setLoaded] = useState(false);
 
 
+    const getQueryParams = () => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const params = {};
+
+        // 遍历 URLSearchParams 对象，将查询参数存储到 params 对象中
+        for (const [key, value] of searchParams) {
+            params[key] = value;
+        }
+
+        return params;
+    };
+
     useEffect(() => {
         // pathname.get('credential')
         processParam()
-    }, [pathname]);
+    }, []);
 
     async function processParam() {
-        if (null != pathname.get('credential')) {
-            const responsePayload = decodeJwtResponse(pathname.get('credential'));
+        const queryParams = getQueryParams();
+console.log('queryParams', queryParams)
+        if (null != queryParams.credential) {
+            const responsePayload = decodeJwtResponse(queryParams.credential);
             setEmail(responsePayload.email)
             await initWallet(responsePayload.email)
             setHaveLogin(true)
         }
     }
-
-    //
-    // if (!loaded) {
-    //     return <div>Loading...</div>;
-    // }
 
     useEffect(() => {
 

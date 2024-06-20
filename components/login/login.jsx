@@ -45,14 +45,16 @@ export default function Login() {
     }, []);
 
     async function processParam() {
+        setStakeLoading(true)
         const queryParams = getQueryParams();
-console.log('queryParams', queryParams)
+        // console.log('queryParams', queryParams)
         if (null != queryParams.credential) {
             const responsePayload = decodeJwtResponse(queryParams.credential);
             setEmail(responsePayload.email)
             await initWallet(responsePayload.email)
             setHaveLogin(true)
         }
+        setStakeLoading(false)
     }
 
     useEffect(() => {
@@ -134,7 +136,7 @@ console.log('queryParams', queryParams)
         } catch (e) {
             console.log(e)
             setStakeLoading(false)
-            if (e.indexOf('insufficient funds') !== -1) {
+            if (e.toString().indexOf('insufficient funds') !== -1) {
                 alertRef.current.showErrorAlert("Mint Error: Insufficient Funds");
             } else {
                 alertRef.current.showErrorAlert("Mint Error");
@@ -207,7 +209,7 @@ console.log('queryParams', queryParams)
                 <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON:</div>
                 {/*data-login_uri="https://yugu.vercel.app"*/}
 
-                {!haveLogin && <div>
+                {!haveLogin && (stakeLoading ? <span className="loading loading-spinner loading-sm"></span>:<div>
                     <div id="g_id_onload"
                          data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"
                          data-context="signin"
@@ -225,7 +227,7 @@ console.log('queryParams', queryParams)
                          data-size="large"
                          data-logo_alignment="left">
                     </div>
-                </div>}
+                </div>)}
                 {/*{!haveLogin && <div className="overflow-hidden">*/}
                 {/*    <div id="g_id_onload"*/}
                 {/*         data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"*/}

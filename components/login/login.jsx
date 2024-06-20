@@ -212,7 +212,7 @@ console.log('queryParams', queryParams)
                          data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"
                          data-context="signin"
                          data-ux_mode="redirect"
-                         data-login_uri="http://localhost:3001/api/logincallback"
+                         data-login_uri="https://yugu.vercel.app/api/logincallback"
                          data-callback="loginProcess"
                          data-auto_prompt="false">
                     </div>

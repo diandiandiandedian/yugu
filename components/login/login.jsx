@@ -100,7 +100,11 @@ export default function Login() {
         } catch (e) {
             console.log(e)
             setStakeLoading(false)
-            alertRef.current.showErrorAlert("Mint Error");
+            if (e.indexOf('insufficient funds')!==-1){
+                alertRef.current.showErrorAlert("Mint Error: Insufficient Funds");
+            }else {
+                alertRef.current.showErrorAlert("Mint Error");
+            }
         }
     }
 
@@ -118,6 +122,23 @@ export default function Login() {
     // }
 
     globalThis.loginProcess = async (response) => {
+        // decodeJwtResponse() is a custom function defined by you
+        // to decode the credential response.
+        console.log('response', response)
+        const responsePayload = decodeJwtResponse(response.credential);
+
+        console.log("ID: " + responsePayload.sub);
+        console.log('Full Name: ' + responsePayload.name);
+        console.log('Given Name: ' + responsePayload.given_name);
+        console.log('Family Name: ' + responsePayload.family_name);
+        console.log("Image URL: " + responsePayload.picture);
+        console.log("Email: " + responsePayload.email);
+        setEmail(responsePayload.email)
+        await initWallet(responsePayload.email)
+        setHaveLogin(true)
+    }
+
+    globalThis.aaaa = async (response) => {
         // decodeJwtResponse() is a custom function defined by you
         // to decode the credential response.
         console.log('response', response)
@@ -170,7 +191,24 @@ export default function Login() {
                          data-logo_alignment="left">
                     </div>
                 </div>}
+<br/>
+                <div id="g_id_onload"
+                     data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"
+                     data-context="signin"
+                     data-ux_mode="redirect"
+                     data-login_uri="https://yugu.vercel.app"
+                     data-callback="aaaa"
+                     data-auto_prompt="false">
+                </div>
 
+                <div className="g_id_signin"
+                     data-type="standard"
+                     data-shape="rectangular"
+                     data-theme="outline"
+                     data-text="signin_with"
+                     data-size="large"
+                     data-logo_alignment="left">
+                </div>
 
                 {/*<input type="text" className="border-[2px] rounded-[0.7rem] text-[#000000] border-[#000000] px-3 py-2 mb-3" placeholder="Email" onChange={handleEmailChange} value={email}/>*/}
 

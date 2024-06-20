@@ -11,6 +11,7 @@ import {UniPassTheme} from "@unipasswallet/popup-types";
 import erc721abi from "../../contract/erc721abi.json";
 // import {useAccount, useContractRead, useContractWrite, useNetwork, useWaitForTransaction} from "wagmi";
 import AlertComponent from "../common/AlertComponent";
+import {useSearchParams} from "next/navigation";
 
 export default function Login() {
 
@@ -19,7 +20,31 @@ export default function Login() {
     const [stakeLoading, setStakeLoading] = useState(false);
     const [haveLogin, setHaveLogin] = useState(false);
     const alertRef = useRef(null);
+    const pathname = useSearchParams()
 
+    // const { id } = router.query;
+    // console.log('id',id)
+    // const [loaded, setLoaded] = useState(false);
+
+
+    useEffect(() => {
+        // pathname.get('credential')
+        processParam()
+    }, [pathname]);
+
+    async function processParam() {
+        if (null != pathname.get('credential')) {
+            const responsePayload = decodeJwtResponse(pathname.get('credential'));
+            setEmail(responsePayload.email)
+            await initWallet(responsePayload.email)
+            setHaveLogin(true)
+        }
+    }
+
+    //
+    // if (!loaded) {
+    //     return <div>Loading...</div>;
+    // }
 
     useEffect(() => {
 
@@ -171,14 +196,15 @@ export default function Login() {
                 <Image src="/subtitle.svg" width="300" height="300" alt="sub"></Image>
                 <Image src="/title.svg" width="300" height="300" alt="title" className="mt-[2rem]"></Image>
                 <div className="my-[3rem] font-['Roboto-Regular']">Start earning for each order with DISHSOON:</div>
+                {/*data-login_uri="https://yugu.vercel.app"*/}
 
-                <div>
+                {!haveLogin && <div>
                     <div id="g_id_onload"
                          data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"
                          data-context="signin"
                          data-ux_mode="redirect"
-                         data-login_uri="https://yugu.vercel.app"
-                         data-callback="aaaa"
+                         data-login_uri="http://localhost:3001/api/logincallback"
+                         data-callback="loginProcess"
                          data-auto_prompt="false">
                     </div>
 
@@ -190,8 +216,7 @@ export default function Login() {
                          data-size="large"
                          data-logo_alignment="left">
                     </div>
-                </div>
-                <br/>
+                </div>}
                 {/*{!haveLogin && <div className="overflow-hidden">*/}
                 {/*    <div id="g_id_onload"*/}
                 {/*         data-client_id="456534502200-r1bv9iimdrvti6vt46jc00t9jtpdjrf2.apps.googleusercontent.com"*/}
